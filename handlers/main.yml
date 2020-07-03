@@ -1,0 +1,10 @@
+---
+- name: Restart kamailio
+  service:
+    name: 'kamailio'
+    state: 'restarted'
+
+- name: Restart rsyslog
+  service:
+    name: 'rsyslog'
+    state: 'restarted'

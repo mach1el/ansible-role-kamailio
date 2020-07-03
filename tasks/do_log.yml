@@ -1,0 +1,14 @@
+---
+- name: Kamailio | Create syslog
+  become: true
+  file:
+    path: "{{ kamailio_log_path }}"
+    state: touch
+
+- name: Kamailio | Enable syslog
+  become: true
+  lineinfile:
+    dest: /etc/rsyslog.conf
+    line: local0.*      -{{ kamailio_log_path }}
+  notify: Restart rsyslog
+  when: kamailio_enable_syslog

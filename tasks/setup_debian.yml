@@ -1,0 +1,48 @@
+---
+
+- name: Kamailio | Update APT Cache
+  apt: update_cache=yes
+  when: kamailio_manage_repo
+
+- name: Kamailio | Installation
+  apt:
+    name: "{{ kamailio_packages }}"
+    state: present
+  notify: Restart kamailio
+
+- name: Kamailio | Install pexpect
+  become: true
+  pip:
+    name: pexpect
+    executable: pip2
+
+- name: Kamailio | Configure.
+  template:
+    src: "{{ kamailio_config_template_dir }}/{{ item }}.j2"
+    dest: "{{ kamailio_conf_dir }}/{{ item }}"
+    backup: true
+  with_items: "{{ kamailio_conf_files }}"
+  notify: Restart kamailio
+  when: kamailio_install_conf
+
+- name: Kamailio | Installing pexpect >= 3.3
+  pip:
+    name: https://pypi.python.org/packages/source/p/pexpect/pexpect-4.0.1.tar.gz
+
+- name: Kamailio | Check if DB exist
+  become: true
+  become_user: postgres
+  postgresql_db:
+    name: kamailio
+    state: present
+  register: database_exists
+      
+- name: Kamailio | Create database
+  expect:
+    command: /sbin/kamdbctl create
+    responses:
+      password: "{{ kamailio_db_root_pass }}"
+      (?i)Install: "y"
+  run_once: true
+  notify: Restart kamailio
+  when: kamailio_create_db and database_exists.changed

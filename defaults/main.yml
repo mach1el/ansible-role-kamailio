@@ -1,0 +1,44 @@
+---
+kamailio_bind_host: "0.0.0.0"
+kamailio_bind_port: "5060"
+kamailio_service_name: "kamailio"
+kamailio_db_host: "localhost"
+kamailio_db_port: "5432"
+kamailio_db_engine: "PGSQL"
+kamailio_db_name: "kamailio"
+kamailio_db_user: "kamailio"
+kamailio_db_pass: "kamailio"
+kamailio_db_root_user: "postgres"
+kamailio_db_root_pass: "postgres"
+kamailio_db_connect_engine: "postgres"
+kamailio_db_url: "{{ kamailio_db_connect_engine }}://{{ kamailio_db_user }}:{{ kamailio_db_pass }}@{{ kamailio_db_host }}/{{ kamailio_db_name }}"
+kamailio_create_db: true
+kamailio_install_conf: true
+kamailio_manage_repo: true
+kamailio_conf_dir: "/etc/kamailio/"
+kamailio_config_template_dir: "../templates/config/"
+kamailio_log_path: "/var/log/kamailio.log"
+kamailio_enable_syslog: true
+kamailio_conf_files:
+  - kamailio.cfg
+  - kamctlrc
+kamailio_packages:
+  - python3-pip
+  - python-pip
+  - kamailio 
+  - kamailio-autheph-modules
+  - kamailio-berkeley-bin 
+  - kamailio-berkeley-modules
+  - kamailio-json-modules
+  - kamailio-mysql-modules
+  - kamailio-outbound-modules
+  - kamailio-perl-modules
+  - kamailio-postgres-modules
+  - kamailio-presence-modules
+  - kamailio-python-modules
+  - kamailio-python3-modules
+  - kamailio-ruby-modules
+  - kamailio-systemd-modules
+  - kamailio-tls-modules
+  - kamailio-utils-modules
+  - kamailio-websocket-modules
