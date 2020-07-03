@@ -1,5 +1,5 @@
 # Ansible Role for Kamailio
-![Version](https://img.shields.io/github/v/tag/mach1el/ansible-role-kamailio?color=magenta&label=Ver&style=flat-square) ![License](https://img.shields.io/github/license/mach1el/ansible-role-k)
+![Version](https://img.shields.io/github/v/tag/mach1el/ansible-role-kamailio?color=magenta&label=Ver&style=flat-square) ![License](https://img.shields.io/github/license/mach1el/ansible-role-kamailio)
 
 Auto build,deploy kamailio with ansible.
 
