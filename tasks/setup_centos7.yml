@@ -1,15 +1,21 @@
 ---
-
-- name: Kamailio | Update APT Cache
+- name: Kamailio | Add yum repo.
   become: true
-  apt: update_cache=yes
-  when: kamailio_manage_repo
+  get_url:
+    url: http://download.opensuse.org/repositories/home:/kamailio:/v5.3.x-rpms/CentOS_7/home:kamailio:v5.3.x-rpms.repo
+    dest: /etc/yum.repos.d/kamailio.repo
 
-- name: Kamailio | Installation
+- name: Kamailio | Yum install epel-release.
   become: true
-  apt:
-    name: "{{ kamailio_debian_packages }}"
+  yum:
+    name: epel-release
     state: present
+
+- name: Kamailio | Yum install packages.
+  become: true
+  yum:
+    name: "{{ kamailio_centos7_packages }}"
+    state: latest
   notify: Restart kamailio
 
 - name: Kamailio | Configure.
@@ -22,11 +28,12 @@
   notify: Restart kamailio
   when: kamailio_install_conf
 
-- name: Kamailio | Installing pexpect >= 3.3
+- name: Kamailio | Installing pexpect.
+  become: true
   pip:
-    name: https://pypi.python.org/packages/source/p/pexpect/pexpect-4.0.1.tar.gz
+    name: pexpect
 
-- name: Kamailio | Check if DB exist
+- name: Kamailio | Check if DB exist.
   become: true
   become_user: postgres
   postgresql_db:
@@ -34,7 +41,7 @@
     state: present
   register: database_exists
       
-- name: Kamailio | Create database
+- name: Kamailio | Create database.
   expect:
     command: /sbin/kamdbctl create
     responses:

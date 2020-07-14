@@ -2,6 +2,9 @@
 - include_tasks: setup_debian.yml
   when: ansible_os_family == 'Debian'
 
+- include_tasks: setup_centos7.yml
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version > '6'
+
 - include_tasks: do_log.yml
 
 - name: Kamailio | Enable service

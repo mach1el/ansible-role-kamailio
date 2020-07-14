@@ -22,7 +22,25 @@ kamailio_enable_syslog: true
 kamailio_conf_files:
   - kamailio.cfg
   - kamctlrc
-kamailio_packages:
+kamailio_centos7_packages:
+  - vim
+  - python-pip
+  - python3
+  - python3-pip
+  - python-setuptools 
+  - kamailio
+  - kamailio-presence 
+  - kamailio-ldap 
+  - kamailio-mysql 
+  - kamailio-debuginfo 
+  - kamailio-xmpp 
+  - kamailio-unixodbc 
+  - kamailio-utils 
+  - kamailio-tls 
+  - kamailio-outbound 
+  - kamailio-gzcompress
+  - kamailio-postgresql
+kamailio_debian_packages:
   - python3-pip
   - python-pip
   - kamailio 
